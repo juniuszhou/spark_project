@@ -1,6 +1,6 @@
 #!/bin/sh
 spath="/home/junius/git_hub/spark_project/src/main/scala/"
-dpath="/home/junius/develop/spark-1.0.0/examples/target/scala-2.10/classes/org/apache/spark/examples/"
+dpath="/home/junius/develop/spark-1.0.0/examples/src/main/scala/org/apache/spark/examples/"
 
 postfix=".scala"
 wildPost="*"
@@ -10,7 +10,7 @@ dfile=${dpath}${1}${postfix}
 allOldFiles=${dpath}${1}${wildPost}
 echo $dfile
 
-rm $allOldFiles
+# rm $allOldFiles
 cp $sfile $dfile
 
 # exec sbt to get example package
