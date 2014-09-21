@@ -7,17 +7,12 @@ package org.apache.spark.examples
 
 import java.util.Random
 import java.net.InetAddress
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.rdd.RDD
 import scala.Array.canBuildFrom
-import scala.collection.mutable.ListBuffer
+
 
 
 //this one successfully run at spark cluster.
 object CoreCollectTrace {
-
-
   def CollectTrace(): Unit ={
     //get real hostname
     println(InetAddress.getLocalHost().getHostName())
