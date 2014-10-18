@@ -12,6 +12,7 @@ import java.util.Random
 object LocalBigRdd {
   def main(args: Array[String]) {
     val sc = new SparkContext("local[4]", "Simple App")
+
     val random = new Random()
     val dataLen = 1000
     //generate so many integer
@@ -23,7 +24,6 @@ object LocalBigRdd {
     println(dataRdd.min)
 
     val orderRdd = sc.makeRDD(dataSet, 10).cache.map(i => (i, null)).sortByKey().map(println).count()
-
   }
 }
 
