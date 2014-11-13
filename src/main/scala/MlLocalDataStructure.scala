@@ -6,10 +6,6 @@ import org.apache.spark.mllib.regression._
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.rdd.RDD
 import org.apache.spark.mllib.linalg.{Matrix, Matrices}
-import org.apache.spark.mllib.linalg.distributed.RowMatrix
-import org.apache.spark.mllib.classification._
-import org.apache.spark.mllib.recommendation.ALS
-import org.apache.spark.mllib.recommendation.Rating
 
 import java.util.Random
 
@@ -72,14 +68,30 @@ object MlLocalDataStructure {
     println(pos.features)
   }
 
+  /*
+  def GenerateSVMData: RDD[LabeledPoint] = {
+    LabeledPoint
+  }
+  */
 
 	def main(args: Array[String]) {
 		val sc = new SparkContext("local", "object MlLocalDataStructure")
 
 		//to support the data format defined in libsvm and liblinear.
-		val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, "/home/junius/develop/spark-1.0.0/mllib/data/sample_libsvm_data.txt")
+		val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, "/home/junius/develop/spark-1.1.0/data/mllib/sample_libsvm_data.txt")
+    //examples.count()
+    //val result = examples.take(10)
+    // println(result.length)
+    //result.foreach(i => println(i.toString))
+    /*
+    result.foreach(f => {
+      print(f.label + " ")
+      //f.features.toArray.foreach(f2 => print(f2 + " "))
+      println
+
+    })*/
 
 
-    denseVectorOps
+    //denseVectorOps
 	}
 }

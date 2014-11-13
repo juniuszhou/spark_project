@@ -22,7 +22,7 @@ object SqlFirst {
     val people = sc.textFile("/home/junius/git_hub/spark/examples/src/main/resources/people.txt", 4).map(_.split(",")).map(p => Person(p(0), p(1).trim.toInt))
     val other: SchemaRDD = sqlContext.createSchemaRDD(people)
     //val other = new SchemaRDD(sqlContext, null)
-    other.registerAsTable("people")
+    other.registerTempTable("people")
     
     
     /*(0 to 10).map( age => {

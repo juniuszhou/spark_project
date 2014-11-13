@@ -102,8 +102,9 @@ object MlFirst {
 	}
 
 	def main(args: Array[String]) {
+    val dataFilePath = "/home/junius/develop/spark-1.1.0/data/mllib/sample_svm_data.txt"
 		val sc = new SparkContext("local", "Simple App")
-		val data = sc.textFile("/home/junius/develop/spark-1.0.0/mllib/data/sample_svm_data.txt")
+		val data = sc.textFile(dataFilePath)
 		val parsedData = data.map(s => Vectors.dense(s.split(' ').map(_.toDouble)))
 
 
@@ -113,7 +114,7 @@ object MlFirst {
 		val pos: LabeledPoint = LabeledPoint(1.0, Vectors.dense(0, 1, 2))
 
 		//to support the data format defined in libsvm and liblinear.
-		val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, "/home/junius/develop/spark-1.0.0/mllib/data/sample_libsvm_data.txt")
+		val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, dataFilePath)
 
 		generateRDDVector(examples)
 		mySvm(examples)
