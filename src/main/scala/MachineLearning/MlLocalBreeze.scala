@@ -1,7 +1,10 @@
+package MachineLearning
+
+import breeze.linalg.DenseVector
+
 /**
  * Created by junius on 14-11-9.
  */
-import breeze.linalg._
 
 object MlLocalBreeze {
   def main (args: Array[String]) {

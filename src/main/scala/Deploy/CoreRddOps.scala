@@ -3,14 +3,13 @@
  */
 
 // package name for deployed via this package.
-package org.apache.spark.examples
+package Deploy
 
-import java.util.Random
 import java.net.InetAddress
+
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
 import org.apache.spark.rdd.RDD
-import scala.Array.canBuildFrom
+
 import scala.collection.mutable.ListBuffer
 
 

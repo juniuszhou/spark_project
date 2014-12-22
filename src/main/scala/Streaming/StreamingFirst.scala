@@ -1,7 +1,8 @@
-import org.apache.spark.streaming._
-import org.apache.spark.streaming.StreamingContext._
+package Streaming
+
 import org.apache.spark.SparkConf
 import org.apache.spark.storage.StorageLevel
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.dstream.DStream
 
 /**

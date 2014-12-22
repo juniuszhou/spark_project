@@ -1,13 +1,13 @@
+package MachineLearning
 
 
-import org.apache.spark.SparkContext
-import org.apache.spark.mllib.linalg.{Vector, Vectors}
-import org.apache.spark.mllib.regression._
-import org.apache.spark.mllib.util.MLUtils
-import org.apache.spark.rdd.RDD
-import org.apache.spark.mllib.linalg.{Matrix, Matrices}
 
 import java.util.Random
+
+import org.apache.spark.SparkContext
+import org.apache.spark.mllib.linalg.{Matrices, Matrix, Vectors}
+import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.rdd.RDD
 
 object MlLocalDataStructure {
 	def printPoints(l: LabeledPoint) = {

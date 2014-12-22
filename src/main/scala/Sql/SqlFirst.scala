@@ -1,12 +1,6 @@
 // bin/run-example org.apache.spark.examples.mySparkExamples.simpleSql
 
-package org.apache.spark.examples.mySparkExamples
-
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SchemaRDDLike
-import org.apache.spark.sql.SchemaRDD
+package Sql
 
 //must be case class, then implicit transition is possible.
 case class Person(name: String, age: Int){}

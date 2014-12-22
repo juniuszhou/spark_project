@@ -1,13 +1,13 @@
+package MachineLearning
+
 import org.apache.spark.SparkContext
-import org.apache.spark.mllib.linalg.{Vector, Vectors}
-import org.apache.spark.mllib.regression._
+import org.apache.spark.mllib.classification.{LogisticRegressionWithSGD, SVMWithSGD}
+import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.linalg.distributed.RowMatrix
+import org.apache.spark.mllib.recommendation.{ALS, Rating}
+import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.rdd.RDD
-import org.apache.spark.mllib.linalg.{Matrix, Matrices}
-import org.apache.spark.mllib.linalg.distributed.RowMatrix
-import org.apache.spark.mllib.classification._
-import org.apache.spark.mllib.recommendation.ALS
-import org.apache.spark.mllib.recommendation.Rating
 
 object MlFirst {
 	def printPoints(l: LabeledPoint) = {
@@ -17,17 +17,17 @@ object MlFirst {
 	}
 
 	def generateRDDVector(rl: RDD[LabeledPoint]){
-		val rows: RDD[Vector] = rl.map(l => l.features)
+		/* val rows: RDD[Vector] = rl.map(l => l.features)
 
 				//distributes matrix
-				val mat: RowMatrix = new RowMatrix(rows)
+		//		val mat: RowMatrix = new RowMatrix(rows)
 		val m = mat.numRows()
 		val n = mat.numCols()
 		println(m.toString + " and " + n.toString)
 
 		println(mat.computeColumnSummaryStatistics().mean)
 		println(mat.computeColumnSummaryStatistics().variance)
-		println(mat.computeColumnSummaryStatistics().count)
+		println(mat.computeColumnSummaryStatistics().count) */
 	}
 
 	def mySvm(rl: RDD[LabeledPoint]) = {
@@ -108,10 +108,7 @@ object MlFirst {
 		val parsedData = data.map(s => Vectors.dense(s.split(' ').map(_.toDouble)))
 
 
-		//basic data type used in mllib
-		val dv: Vector = Vectors.dense(1.0, 2.0, 3.0)
-		val sv1: Vector = Vectors.sparse(4, Array(0,1), Array(1.0, 3.0))
-		val pos: LabeledPoint = LabeledPoint(1.0, Vectors.dense(0, 1, 2))
+
 
 		//to support the data format defined in libsvm and liblinear.
 		val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, dataFilePath)

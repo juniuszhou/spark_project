@@ -1,13 +1,12 @@
+package Local
+
 /**
  * Created by junius on 14-8-18.
  */
 
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.rdd.RDD
-import scala.Array.canBuildFrom
-
 import java.util.Random
+
+import org.apache.spark.SparkContext
 
 object LocalBigRdd {
   def main(args: Array[String]) {
@@ -23,7 +22,7 @@ object LocalBigRdd {
     println(dataRdd.max)
     println(dataRdd.min)
 
-    val orderRdd = sc.makeRDD(dataSet, 10).cache.map(i => (i, null)).sortByKey().map(println).count()
+    // val orderRdd = sc.makeRDD(dataSet, 10).cache.map(i => (i, null)).sortByKey().map(println).count()
   }
 }
 

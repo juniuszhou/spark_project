@@ -1,15 +1,12 @@
-package org.apache.spark.examples
+package MachineLearning
 
 import org.apache.spark.SparkContext
-import org.apache.spark.mllib.linalg.{Vector, Vectors}
-import org.apache.spark.mllib.regression._
+import org.apache.spark.mllib.classification.SVMWithSGD
+import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.linalg.distributed.RowMatrix
+import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.rdd.RDD
-import org.apache.spark.mllib.linalg.{Matrix, Matrices}
-import org.apache.spark.mllib.linalg.distributed.RowMatrix
-import org.apache.spark.mllib.classification._
-import org.apache.spark.mllib.recommendation.ALS
-import org.apache.spark.mllib.recommendation.Rating
 
 object MlSvm {
 	def printPoints(l: LabeledPoint) = {
@@ -22,7 +19,7 @@ object MlSvm {
 		val rows: RDD[Vector] = rl.map(l => l.features)
 
 				//distributes matrix
-				val mat: RowMatrix = new RowMatrix(rows)
+		val mat: RowMatrix = new RowMatrix(rows)
 		val m = mat.numRows()
 		val n = mat.numCols()
 		println(m.toString + " and " + n.toString)

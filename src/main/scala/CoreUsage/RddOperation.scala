@@ -1,9 +1,12 @@
+package CoreUsage
+
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.rdd.RDD
+import org.apache.spark.rdd._
+
 
 
 object RddOperation{
+  /*
   def readTextFile(sc: SparkContext) = {
     val logFile = "/home/junius/git_hub/spark/examples/src/main/resources/news.txt"
     val logData = sc.textFile(logFile, 4)
@@ -43,11 +46,11 @@ object RddOperation{
     }).count
    
     
-    /*
+
     logData.map(num => num.toInt).mapPartitions(nums => { println("one part is over")
       nums.map(i => println( "junius " + i))      
       }).count
-    */
+
   }
   
   def myCoalesce(sc: SparkContext){
@@ -147,6 +150,7 @@ object RddOperation{
     sc.stop
 
   }
+  */
 }
 
 

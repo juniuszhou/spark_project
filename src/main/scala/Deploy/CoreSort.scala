@@ -3,15 +3,11 @@
  */
 
 // package name for deployed via this package.
-package org.apache.spark.examples
+package Deploy
 
 import java.util.Random
-import java.net.InetAddress
+
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.rdd.RDD
-import scala.Array.canBuildFrom
-import scala.collection.mutable.ListBuffer
 
 
 //this one successfully run at spark cluster.
@@ -26,7 +22,7 @@ object CoreSort {
     (0 until dataLen).map(index => (dataSet(index) = random.nextInt()))
 
     val dataRdd = sc.makeRDD(dataSet, 10)
-    dataRdd.map(i => (i, i)).sortByKey(true, 1).map(println).count
+    //dataRdd.map(i => (i, i)).sortByKey(true, 1).map(println).count
   }
 }
 

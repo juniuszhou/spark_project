@@ -1,5 +1,6 @@
+package Local
+
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
 import org.apache.spark.rdd.RDD
 
 
@@ -7,7 +8,7 @@ object LocalRddOps{
 
   def wordCount(sc: SparkContext, data: RDD[String]){
     val counts = data.flatMap(line => line.split(" "))
-    counts.map(word => (word, 1)).reduceByKey(_ + _, 2).map(pair => println(pair._1 + " "  + pair._2)).count
+    // counts.map(word => (word, 1)).reduceByKey(_ + _, 2).map(pair => println(pair._1 + " "  + pair._2)).count
   }
 
   def letterCount(sc: SparkContext, data: RDD[String]) = {
@@ -17,12 +18,12 @@ object LocalRddOps{
       (0 until (word.length())).map(i => (all.update(i, word.charAt(i))))
       all
     })
-    letterData.map(letter => (letter, 1)).reduceByKey(_ + _, 2).map(pair => println(pair._1 + " "  + pair._2)).count
+    // letterData.map(letter => (letter, 1)).reduceByKey(_ + _, 2).map(pair => println(pair._1 + " "  + pair._2)).count
   }
 
   def partitionSum(sc: SparkContext, data: RDD[String]){
     val tmpData = data.map(num => num.toInt).mapPartitionsWithIndex((i, nums) => nums.map(n => (i, n)), true)
-    val tmp2Data = tmpData.reduceByKey(_ + _, 3).map(i => {println(i._1.toString + " partitionSum " + i._2)}).count
+    // val tmp2Data = tmpData.reduceByKey(_ + _, 3).map(i => {println(i._1.toString + " partitionSum " + i._2)}).count
   }
 
   def rddUnion(sc: SparkContext, data: RDD[String], data2: RDD[String]): Unit ={
@@ -70,18 +71,18 @@ object LocalRddOps{
     val logData = sc.textFile(logFile, 3).cache
     val wordData = logData.flatMap(line => line.split(" ")).map(word => (word, 1))
     def s(i: Int, j: Int): Int =  i + j
-    val result = wordData.combineByKey(n => n, s,s).map(counts => {
-      println(counts._1 + " has " + counts._2)
-    }).count
+    // val result = wordData.combineByKey(n => n, s,s).map(counts => {
+    //  println(counts._1 + " has " + counts._2)
+    // } ).count
 
   }
 
   def pairCountByKey(sc: SparkContext){
     val logFile = "/home/junius/git_hub/spark/examples/src/main/resources/news.txt"
     val logData = sc.textFile(logFile, 3).cache
-    val wordData = logData.flatMap(line => line.split(" ")).map(word => (word, 1)).countByKey.map(counts => {
-      println(counts._1 + " has " + counts._2)
-    })
+    //val wordData = logData.flatMap(line => line.split(" ")).map(word => (word, 1)).countByKey.map(counts => {
+    //  println(counts._1 + " has " + counts._2)
+    //})
   }
 
   def myCombineByKey(sc: SparkContext){
@@ -89,7 +90,7 @@ object LocalRddOps{
 
     //add tail to each word
     val logData = sc.textFile(logFile, 3).cache.flatMap(line => line.split(" ")).map(str => (str, str + " junius "))
-    val log2 = logData.combineByKey[(Long, String)](
+    /*val log2 = logData.combineByKey[(Long, String)](
       //map value to tuple
       createCombiner = (s: String) => (1L, s),
       //merge init tuple and each value
@@ -97,7 +98,7 @@ object LocalRddOps{
       //combine all partition of merger.
       mergeCombiners = (c1: (Long, String), c2: (Long, String)) => (c1._1 + c2._1, c1._2 + c2._2))
 
-    log2.map(item => println(item._1 + " ij " + item._2._1 + " ji " + item._2._2)).count
+    log2.map(item => println(item._1 + " ij " + item._2._1 + " ji " + item._2._2)).count*/
   }
 
 
@@ -112,7 +113,7 @@ object LocalRddOps{
         a(1) = ' '
         a
       }).toArray))
-
+/*
     val log2 = logData.combineByKey[(Long, Array[Char])](
       //map value to tuple
       createCombiner = (s: Array[Char]) => (1L, s),
@@ -121,7 +122,7 @@ object LocalRddOps{
       //combine all partition of merger.
       mergeCombiners = (c1: (Long, Array[Char]), c2: (Long, Array[Char])) => (c1._1 + c2._1, c1._2))
 
-    log2.map(item => println(item._1 + " ij " + item._2._1 + " ji " + item._2._2)).count
+    log2.map(item => println(item._1 + " ij " + item._2._1 + " ji " + item._2._2)).count */
   }
 
   def myMapPartition(sc: SparkContext){

@@ -1,4 +1,4 @@
-package main.scala
+package MachineLearning
 
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.regression.LabeledPoint

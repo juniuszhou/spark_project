@@ -1,12 +1,11 @@
+package Local
+
+import org.apache.spark.SparkContext
+import org.apache.spark.rdd.PairRDDFunctions
+
 /**
  * Created by junius on 14-8-18.
  */
-
-
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.rdd.{PairRDDFunctions, RDD}
-import scala.Array.canBuildFrom
 
 
 object LocalPairRdd {
@@ -23,9 +22,9 @@ object LocalPairRdd {
     //val kvData = numData.map(str => (str.toInt, str)).aggregateByKey(0, 3)(_ + _, _ + _)
 
     //combine values for the same key
-    val kvData: PairRDDFunctions[Int, String] = numData.map(str => (str.toInt, str))
+   // val kvData: PairRDDFunctions[Int, String] = numData.map(str => (str.toInt, str))
     val otherKvData = numData.map(str => (str.toInt, " " + str + " junius"))
-    kvData.cogroup(otherKvData)
+   // kvData.cogroup(otherKvData)
 
   }
 }

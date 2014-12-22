@@ -3,11 +3,9 @@
  */
 
 // package name for deployed via this package.
-package org.apache.spark.examples
+package Deploy
 
-import java.util.Random
 import java.net.InetAddress
-import scala.Array.canBuildFrom
 
 
 

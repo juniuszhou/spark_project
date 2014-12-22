@@ -1,8 +1,6 @@
-package org.apache.spark.examples.mySparkExamples
+package Deploy
 
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkContext, SparkConf}
 
 object DeployMesos {
   def main(args: Array[String]) {
