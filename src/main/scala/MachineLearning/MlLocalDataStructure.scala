@@ -10,6 +10,7 @@ import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.rdd.RDD
 
 object MlLocalDataStructure {
+  /*
 	def printPoints(l: LabeledPoint) = {
 		val d: Double = l.label
 				val v = l.features
@@ -18,8 +19,8 @@ object MlLocalDataStructure {
 
   def BlasData = {
     //all methods defined in BLAS are mllib private
-    val dv1: Vector = Vectors.dense(1.0, 2.0, 3.0)
-    val dv2: Vector = Vectors.dense(1.0, 2.0, 3.0)
+    //val dv1: Vector = Vectors.dense(1.0, 2.0, 3.0)
+    //val dv2: Vector = Vectors.dense(1.0, 2.0, 3.0)
   }
 
   def DenseMatrixOps = {
@@ -57,8 +58,8 @@ object MlLocalDataStructure {
 
   def SparseVectorOps = {
     //init a vector from list
-    val sv: Vector = Vectors.sparse(4, Array(0,1), Array(1.0, 3.0))
-    sv.toArray.map(println)
+   // val sv: Vector = Vectors.sparse(4, Array(0,1), Array(1.0, 3.0))
+    //sv.toArray.map(println)
 
   }
 
@@ -78,20 +79,21 @@ object MlLocalDataStructure {
 		val sc = new SparkContext("local", "object MlLocalDataStructure")
 
 		//to support the data format defined in libsvm and liblinear.
-		val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, "/home/junius/develop/spark-1.1.0/data/mllib/sample_libsvm_data.txt")
+		//val examples: RDD[LabeledPoint] = MLUtils.loadLibSVMFile(sc, "/home/junius/develop/spark-1.1.0/data/mllib/sample_libsvm_data.txt")
     //examples.count()
     //val result = examples.take(10)
     // println(result.length)
     //result.foreach(i => println(i.toString))
-    /*
+
     result.foreach(f => {
       print(f.label + " ")
       //f.features.toArray.foreach(f2 => print(f2 + " "))
       println
 
-    })*/
+    })
 
 
     //denseVectorOps
-	}
+	}*/
 }
+

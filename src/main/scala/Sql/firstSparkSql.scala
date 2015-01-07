@@ -1,5 +1,8 @@
 package Sql
 
+import org.apache.spark.SparkContext
+import org.apache.spark.sql.SQLContext
+
 //case class Person(name: String, age: Int)
 
 object firstSparkSql {

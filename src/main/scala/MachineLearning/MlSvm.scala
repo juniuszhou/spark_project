@@ -9,6 +9,7 @@ import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.rdd.RDD
 
 object MlSvm {
+	/*
 	def printPoints(l: LabeledPoint) = {
 		val d: Double = l.label
 				val v = l.features
@@ -58,5 +59,6 @@ object MlSvm {
 		generateRDDVector(examples)
 		mySvm(examples)
 
-	}
+	}*/
+
 }

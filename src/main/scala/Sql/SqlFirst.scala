@@ -2,6 +2,9 @@
 
 package Sql
 
+import org.apache.spark.SparkContext
+import org.apache.spark.sql.{SchemaRDD, SQLContext}
+
 //must be case class, then implicit transition is possible.
 case class Person(name: String, age: Int){}
 
