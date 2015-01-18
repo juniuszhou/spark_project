@@ -1,5 +1,5 @@
 #!/bin/sh
-spath="/home/junius/git_hub/spark_project/src/main/scala/"
+spath="/home/junius/my_git/spark_project/src/main/scala/"
 dpath="/home/junius/develop/spark-1.1.0/examples/src/main/scala/org/apache/spark/examples/"
 
 postfix=".scala"
