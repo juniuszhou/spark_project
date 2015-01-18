@@ -1,11 +1,55 @@
 package CoreUsage
 
-import org.apache.spark.SparkContext
+import org.apache.spark.executor.TaskMetrics
+import org.apache.spark.util.TaskCompletionListener
+import org.apache.spark.{TaskContext, SparkContext}
 import org.apache.spark.rdd._
 
 
 
 object RddOperation{
+  def CallCompute(sc: SparkContext) = {
+    val rdd = RddGenerator.GenerateNumberRDD(sc)
+    val par = rdd.partitions(0)
+    val con = new TaskContext {override def addOnCompleteCallback(function0: () => Unit): Unit = ???
+
+      override def taskMetrics(): TaskMetrics = null
+
+      override def isCompleted: Boolean = false
+
+      override def isRunningLocally: Boolean = true
+
+      override def isInterrupted: Boolean = false
+
+      override def runningLocally(): Boolean = true
+
+      override def partitionId(): Int = 0
+
+      override def addTaskCompletionListener(taskCompletionListener: TaskCompletionListener): TaskContext = null
+
+      override def addTaskCompletionListener(function1: (TaskContext) => Unit): TaskContext = null
+
+      override def attemptId(): Long = 0
+
+      override def stageId(): Int = 0
+    }
+    val res = rdd.compute(par, con)
+    res.foreach(println)
+  }
+
+  def CallDistinct(sc: SparkContext) = {
+    val rdd = RddGenerator.GenerateNumberRDD(sc)
+    val res = rdd.distinct(4)
+    res.foreach(println)
+  }
+
+  def CallMapPartition(sc: SparkContext) = {
+    val rdd = RddGenerator.GenerateNumberRDD(sc)
+    def f = (i: Iterator[Int]) => i.map(x => x.toString)
+    val res = rdd.mapPartitions(f)
+    res.foreach(println)
+  }
+
   /*
   def readTextFile(sc: SparkContext) = {
     val logFile = "/home/junius/git_hub/spark/examples/src/main/resources/news.txt"
@@ -134,23 +178,16 @@ object RddOperation{
      a
    }
    val logData = sc.textFile(logFile, 3).cache.mapPartitions(f, true).count
- }
+ }*/
  
   def main(args: Array[String]) {
-	val logFile = "/home/junius/git_hub/spark_project/resource/number.txt" // Should be some file on your system
-    val sc = new SparkContext("local[4]", "Simple App")
-	myMapPartition(sc)
-
-	//val logData = readNumbers(sc)
-    //join
-    //val kvRDD1 = logData.map( i => (i, i))
-    //val kvRDD2 = logData.map( i => (i, i + i)).join(kvRDD1)
-    //kvRDD2.map(print).count
+	 val sc = new SparkContext("local[4]", "Simple App")
+    CallMapPartition(sc);
     
     sc.stop
 
   }
-  */
+
 }
 
 

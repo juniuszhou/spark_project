@@ -50,6 +50,5 @@ object SecondNeighbor {
       x._2.foreach(i => print(" " + i))
       println()
     })
-
   }
 }

@@ -11,6 +11,18 @@ import org.apache.spark.SparkContext._
  * Created by junius on 14-12-25.
  */
 object GraphGenerator {
+  def GenerateNSplitGraph(numVertices: Int, sc: SparkContext, group: Int): Graph[Int, Int] = {
+    var edges: Set[Edge[Int]] = Set()
+    (0 to group).map(i => {
+      edges += Edge[Int](i * 10, i * 10 + numVertices, 1)
+      (0 to numVertices).map(j => {
+         edges += Edge[Int](i * 10 + j , i * 10 + j + 1, 1)
+      })
+    })
+    val rdd: RDD[Edge[Int]] = sc.parallelize(edges.toList, 4)
+
+    Graph.fromEdges(rdd, 0, StorageLevel.MEMORY_ONLY, StorageLevel.MEMORY_ONLY)
+  }
 
   def GenerateAllLinkedGraph(numVertices: Int, sc: SparkContext): Graph[Int, Int] ={
     var edges: Set[Edge[Int]] = Set()
