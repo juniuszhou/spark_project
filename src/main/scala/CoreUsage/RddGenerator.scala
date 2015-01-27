@@ -30,6 +30,13 @@ object RddGenerator {
     sc.parallelize(v, 4)
   }
 
+  def GenerateStrStrRDD(sc: SparkContext) : RDD[(String, String)] = {
+    val r: Random = new Random()
+    val v: Array[(String,String)] = new Array[(String,String)](100)
+    (0 to 99).map(i => v(i) = ((r.nextInt & 0xFF).toString, (r.nextInt & 0xFF).toString))
+    sc.parallelize(v, 4)
+  }
+
   def GenerateFromFile(sc: SparkContext) : RDD[String] = {
     val logFile = "Input File Path"
     val logData = sc.textFile(logFile, 4)

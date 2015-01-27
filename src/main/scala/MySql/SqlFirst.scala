@@ -1,6 +1,6 @@
 // bin/run-example org.apache.spark.examples.mySparkExamples.simpleSql
 
-package Sql
+package MySql
 
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.{SchemaRDD, SQLContext}

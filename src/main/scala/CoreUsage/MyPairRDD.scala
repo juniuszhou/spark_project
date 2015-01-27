@@ -6,21 +6,18 @@ import org.apache.spark.SparkContext._
 object MyPairRDD {
 
   def myCombineByKey(sc: SparkContext){
-    val data = RddGenerator.GeneratePairRDD(sc)
-    val log2 = data.combineByKey[(Long, String)](
-      //map value to tuple
-      createCombiner = (s: String) => (1L, s),
-      //merge init tuple and each value
-      mergeValue = (c: (Long, String), v: String) => (c._1 + 2L, c._2 + v),
-      //combine all partition of merger.
-      mergeCombiners = (c1: (Long, String), c2: (Long, String)) => (c1._1 + c2._1, c1._2 + c2._2))
-
-    log2.map(item => println(item._1 + " ij " + item._2._1 + " ji " + item._2._2)).count
+    // we have string string RDD. first is key, second one is times appeared.
+    val data = RddGenerator.GenerateStrStrRDD(sc)
+    def create = (s: String) => s.toLong
+    def merge = (l: Long, s: String) => l + s.toLong
+    def combine = (l1: Long, l2: Long) => l1 + l2
+    val resRDD = data.combineByKey[Long](create, merge, combine)
+    resRDD.foreach(i => println(i._1 + " as key appeared " + i._2 + " times."))
   }
 
   def main(args: Array[String]) {
     val sc = new SparkContext("local[4]", "Simple App")
-    myCombineByKey(sc);
+    myCombineByKey(sc)
 
     sc.stop
 

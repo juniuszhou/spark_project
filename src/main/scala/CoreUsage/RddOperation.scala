@@ -5,8 +5,6 @@ import org.apache.spark.util.TaskCompletionListener
 import org.apache.spark.{TaskContext, SparkContext}
 import org.apache.spark.rdd._
 
-
-
 object RddOperation{
   def CallCompute(sc: SparkContext) = {
     val rdd = RddGenerator.GenerateNumberRDD(sc)
