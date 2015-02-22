@@ -17,7 +17,9 @@ object firstSparkSql {
     val rdd = sqlContext.sql("SELECT id, name FROM MyRecords")
 
     // where order by
-    rdd.where('id === "junius").orderBy('id.asc)
+    rdd.where('id === "junius").orderBy('id.asc).printSchema()
+
+    // rdd.printSchema()
 
   }
 
@@ -25,16 +27,19 @@ object firstSparkSql {
     // or we can import sqlContext._ then we can use sql without domain name.
     val rdd = sqlContext.sql("SELECT * FROM MyNumberPairs")
     rdd.foreach(println)
+    println("-------------------------------------------")
+    rdd.printSchema()
     rdd
   }
 
   def main(args: Array[String]) {
     val sc = new SparkContext("local[4]", "Simple App") // An existing SparkContext.
     val sqlContext = new SQLContext(sc)
+    sqlContext.setConf("spark.sql.dialect", "sql")
     TableGenerator.GenerateTable(sqlContext)
     TableGenerator.GenerateIntTable(sqlContext)
 
     // PrintTable(sqlContext)
-    GetRDDFromSql(sqlContext)
+    PrintTable(sqlContext)
   }
 }

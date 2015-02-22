@@ -2,6 +2,7 @@ package MySql
 
 import org.apache.spark.SparkContext
 import org.apache.spark.sql._
+import org.apache.spark.sql.catalyst.analysis.Catalog
 
 import scala.util.Random
 
@@ -15,6 +16,20 @@ object MyRecord{
 }*/
 
 object TableGenerator {
+  def GenerateTable(sparkContext: SparkContext, catalog: Catalog) = {
+
+    val r = new Random()
+
+    val data = (0 to 10).map(i => MyRecord(r.nextString(6), r.nextString(12)))
+    val rdd = sparkContext.parallelize(data)
+
+    // only case class RDD can call register temp talbe.
+    catalog.registerTable(None, "MyRecords", null)
+    // rdd.registerTempTable("MyRecords")
+    // other way to register table.
+    // sqlContext.registerRDDAsTable(rdd, "Record")
+  }
+
   def GenerateTable(sqlContext: SQLContext) = {
     import sqlContext._
     // must import all method in sqlContext. then we can call implicit defined
@@ -52,18 +67,18 @@ object TableGenerator {
     // create a schema via set the field name.
     val schema = StructType("f s".split(" ").map(
       fieldName => StructField(fieldName, StringType, true)))
-    val r = new Random()
 
+    val r = new Random()
     // generate data like MyNumPair
     val data = (0 to 10).map(i => r.nextInt.toString + "," + r.nextInt)
     val rdd = sqlContext.sparkContext.parallelize(data)
+
     // transform to Row RDD
     val rowRDD = rdd.map(_.split(",")).map(p => Row(p(0), p(1).trim))
-    // combine the schema and data.
+
+    // combine the schema and data.  before here, row RDD and schema don't know each other.
     val pairSchemaRDD = sqlContext.applySchema(rowRDD, schema)
     pairSchemaRDD.registerTempTable("MyDesignedTable")
-
-    // sql("select * from MyDesignedTable)
   }
 
   // test the API provided for other class.

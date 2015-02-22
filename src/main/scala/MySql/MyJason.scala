@@ -7,7 +7,7 @@ object MyJason {
   def main (args: Array[String]) {
     val sc = new SparkContext("local[4]", "Simple App") // An existing SparkContext.
     val sqlContext = new SQLContext(sc)
-    val path = "/home/junius/my_git/spark_1.1.0_comments/examples/src/main/resources/people.json"
+    val path = "/home/junius/develop/spark-1.2.0/examples/src/main/resources/people.json"
 
     val people = sqlContext.jsonFile(path)
 
@@ -20,8 +20,9 @@ object MyJason {
     val anotherPeopleRDD = sc.parallelize(
       """{"name":"Yin","address":{"city":"Columbus","state":"Ohio"}}""" :: Nil)
     val anotherPeople = sqlContext.jsonRDD(anotherPeopleRDD)
+    anotherPeople.registerTempTable("other people")
+    println(anotherPeople.schemaString)
     anotherPeople.map(println).count()
     sc.stop
-
   }
 }

@@ -19,17 +19,31 @@ object MyParquet {
   def SaveRDDAsParquet[A <: Product: TypeTag](rdd: RDD[A], path: String, sqlContext: SQLContext) = {
     import sqlContext.createSchemaRDD
     rdd.saveAsParquetFile(path)
+
+  }
+
+  // since Parquet data file includes its schema itself. so spark doesn't need apply schema to it.
+  def ReadRDDFromParquet(sqlContext: SQLContext) = {
+    val path = "/home/junius/develop/spark-1.2.0/examples/src/main/resources/users.parquet"
+    val people = sqlContext.parquetFile(path)
+    println(people.schemaString)
+
+    people.registerTempTable("people")
   }
   def main (args: Array[String]) {
     val sc = new SparkContext("local[4]", "Simple App") // An existing SparkContext.
     val sqlContext = new SQLContext(sc)
 
+    // save random generated data into parquet file.
     val r = new Random()
-
     val data = (0 to 10).map(i => MyParquetRecord(r.nextInt, r.nextInt))
     val rdd = sqlContext.sparkContext.parallelize(data)
-
     SaveRDDAsParquet(rdd, "/home/junius/stu.txt", sqlContext)
+
+    // read RDD from parquet file
+    ReadRDDFromParquet(sqlContext)
+    sqlContext.sql("SELECT * FROM people").map(row => println(row.toString())).count
+
     sc.stop()
   }
 }
